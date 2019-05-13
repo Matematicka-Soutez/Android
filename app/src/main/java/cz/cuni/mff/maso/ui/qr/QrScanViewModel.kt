@@ -4,13 +4,7 @@ import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Transformations
-import cz.cuni.mff.maso.api.MasoRequest
-import cz.cuni.mff.maso.api.QrCodeEntity
-import cz.cuni.mff.maso.api.QrRequestEntity
-import cz.cuni.mff.maso.api.QrResponseEntity
-import cz.cuni.mff.maso.api.RequestTypeEnum
-import cz.cuni.mff.maso.api.Resource
-import cz.cuni.mff.maso.api.RetrofitHelper
+import cz.cuni.mff.maso.api.*
 import cz.cuni.mff.maso.tools.Preferences
 import cz.cuni.mff.maso.ui.BaseViewModel
 import java.util.regex.Pattern
@@ -27,10 +21,12 @@ class QrScanViewModel : BaseViewModel() {
 	private val patternAll = Pattern.compile("T\\d+P\\d+")
 	private val patternTeam = Pattern.compile("T(\\d+)")
 	private val patternProblem = Pattern.compile("P(\\d+)")
-	private val requestEntity = MutableLiveData<QrRequestEntity?>()
+	private val requestEntity = MutableLiveData<QrRequestEntityWrapper?>()
 	var requestType = RequestTypeEnum.ADD
 	val request: LiveData<Resource<QrResponseEntity>> = Transformations.switchMap(requestEntity) { it ->
-		it?.let { RetrofitHelper.createRequest(RetrofitHelper.instance.create(MasoRequest::class.java).sendQrCode(it)) }
+		it?.let {
+			RetrofitHelper.createRequest(RetrofitHelper.instance.create(MasoRequest::class.java).sendQrCode(it.gameCode, it.teamNumber, it.requestEntity))
+		}
 	}
 
 	fun processQrCodeResult(text: String?): Boolean {
@@ -48,7 +44,7 @@ class QrScanViewModel : BaseViewModel() {
 		requestEntity.value = tempRequestEntity
 	}
 
-	private fun callApiRequest(requestBody: QrRequestEntity) {
+	private fun callApiRequest(requestBody: QrRequestEntityWrapper) {
 		requestEntity.postValue(requestBody)
 	}
 
@@ -97,6 +93,8 @@ class QrScanViewModel : BaseViewModel() {
 	}
 
 	fun sendRequest(teamNumber: Int, problemId: Int, requestType: RequestTypeEnum) {
-		callApiRequest(QrRequestEntity(requestType, teamNumber, problemId, Preferences.getPassword()!!))
+		Preferences.getGameCode()?.let {
+			callApiRequest(QrRequestEntityWrapper(QrRequestEntity(requestType, problemId, Preferences.getPassword()!!), it, teamNumber))
+		}
 	}
 }
