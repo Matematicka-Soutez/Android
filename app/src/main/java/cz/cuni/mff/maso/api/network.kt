@@ -24,7 +24,7 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-private val URL_BASE = if (BuildConfig.DEBUG) "https://maso-staging.herokuapp.com/" else "https://maso23.herokuapp.com/"
+private const val URL_BASE = "https://kamiony.herokuapp.com/"
 
 object RetrofitHelper {
 

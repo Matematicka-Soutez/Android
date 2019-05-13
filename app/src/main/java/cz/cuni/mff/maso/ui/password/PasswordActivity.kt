@@ -22,7 +22,7 @@ class PasswordActivity : BaseActivity<ActivityPasswordBinding, PasswordViewModel
 	override val viewModel by lazy { initViewModel<PasswordViewModel>() }
 	override val view = object : PasswordView {
 		override fun onNextClicked() {
-			if (viewModel.updatePassword()) {
+			if (viewModel.updateData()) {
 				startActivity(QrScanActivity.newIntent(this@PasswordActivity))
 			}
 		}
@@ -40,7 +40,7 @@ class PasswordActivity : BaseActivity<ActivityPasswordBinding, PasswordViewModel
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
-		if (!displayBackArrow() && !Preferences.getPassword().isNullOrEmpty()) {
+		if (!displayBackArrow() && !Preferences.getPassword().isNullOrEmpty() && !Preferences.getGameCode().isNullOrEmpty()) {
 			startActivity(QrScanActivity.newIntent(this))
 		}
 	}
