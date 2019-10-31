@@ -9,7 +9,7 @@ import cz.cuni.mff.maso.tools.Preferences
 import cz.cuni.mff.maso.ui.BaseViewModel
 import java.util.regex.Pattern
 
-private const val HIDE_SUCCESS_DELAY = 10000L
+private const val HIDE_SUCCESS_DELAY = 2000L
 
 class QrScanViewModel : BaseViewModel() {
 
