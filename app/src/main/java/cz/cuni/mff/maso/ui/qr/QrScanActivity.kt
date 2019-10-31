@@ -16,11 +16,7 @@ import android.widget.ArrayAdapter
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import com.budiyev.android.codescanner.AutoFocusMode
-import com.budiyev.android.codescanner.CodeScanner
-import com.budiyev.android.codescanner.DecodeCallback
-import com.budiyev.android.codescanner.ErrorCallback
-import com.budiyev.android.codescanner.ScanMode
+import com.budiyev.android.codescanner.*
 import com.google.android.material.snackbar.Snackbar
 import com.google.zxing.BarcodeFormat
 import cz.cuni.mff.maso.R
@@ -31,6 +27,7 @@ import cz.cuni.mff.maso.databinding.ActivityQrScanBinding
 import cz.cuni.mff.maso.ui.BaseActivity
 import cz.cuni.mff.maso.ui.login.LoginActivity
 import cz.cuni.mff.maso.ui.settings.SettingsActivity
+import cz.cuni.mff.maso.ui.zip.ZipActivity
 
 private const val PERMISSION_CAMERA_CODE = 69
 
@@ -174,8 +171,16 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 				startSettingsActivity()
 				return true
 			}
+			R.id.action_zip -> {
+				startZipActivity()
+				return true
+			}
 		}
 		return super.onOptionsItemSelected(item)
+	}
+
+	private fun startZipActivity() {
+		startActivity(ZipActivity.newIntent(this))
 	}
 
 	private fun startLoginActivity() {

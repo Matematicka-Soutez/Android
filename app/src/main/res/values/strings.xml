@@ -33,4 +33,5 @@
 	<string name="error_invalid_data">Neplatná data</string>
     <string name="privacy_policy">Ochrana soukromí</string>
     <string name="settings">Nastavení</string>
+	<string name="zip">Rozbal zip</string>
 </resources>

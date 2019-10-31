@@ -15,7 +15,7 @@ class ZipActivity : BaseActivity<ActivityZipBinding, ZipViewModel, ZipView>() {
     override val viewModel by lazy { initViewModel<ZipViewModel>() }
     override val view = object : ZipView {
         override fun onNextClicked() {
-            viewModel.zipUnpack()
+            viewModel.zipUnpack(filesDir)
         }
     }
 

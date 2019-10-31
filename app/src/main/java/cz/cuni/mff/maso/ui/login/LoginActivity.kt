@@ -2,12 +2,14 @@ package cz.cuni.mff.maso.ui.login
 
 import android.content.Context
 import android.content.Intent
+import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import cz.cuni.mff.maso.R
 import cz.cuni.mff.maso.databinding.ActivityLoginBinding
+import cz.cuni.mff.maso.tools.Preferences
 import cz.cuni.mff.maso.ui.BaseActivity
-import cz.cuni.mff.maso.ui.zip.ZipActivity
+import cz.cuni.mff.maso.ui.settings.SettingsActivity
 
 interface LoginView {
 	fun onNextClicked()
@@ -21,8 +23,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 	override val view = object : LoginView {
 		override fun onNextClicked() {
 			if (viewModel.updateData()) {
-				startActivity(ZipActivity.newIntent(this@LoginActivity))
-//				startActivity(SettingsActivity.newIntent(this@LoginActivity))
+				startActivity(SettingsActivity.newIntent(this@LoginActivity))
 			}
 		}
 	}
@@ -37,12 +38,12 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 		}
 	}
 
-//	override fun onCreate(savedInstanceState: Bundle?) {
-//		super.onCreate(savedInstanceState)
-//		if (!displayBackArrow() && !Preferences.getUsername().isNullOrEmpty() && !Preferences.getPassword().isNullOrEmpty()) {
-//			startActivity(SettingsActivity.newIntent(this))
-//		}
-//	}
+	override fun onCreate(savedInstanceState: Bundle?) {
+		super.onCreate(savedInstanceState)
+		if (!displayBackArrow() && !Preferences.getUsername().isNullOrEmpty() && !Preferences.getPassword().isNullOrEmpty()) {
+			startActivity(SettingsActivity.newIntent(this))
+		}
+	}
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		menuInflater.inflate(R.menu.menu_privacy_policy, menu)
