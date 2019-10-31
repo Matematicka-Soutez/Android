@@ -1,5 +1,6 @@
 package cz.cuni.mff.maso.ui.qr
 
+import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -50,7 +51,7 @@ class ManualFillInDialogFragment : DialogFragment() {
 
 	override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 		binding = DialogManualFillInBinding.inflate(inflater, container, false)
-		binding.setLifecycleOwner(this)
+		binding.lifecycleOwner = this
 		binding.viewModel = viewModel
 		binding.view = object : ManualFillInView {
 			override fun cancelOverlay() {
@@ -75,22 +76,22 @@ class ManualFillInDialogFragment : DialogFragment() {
 		super.onViewCreated(view, savedInstanceState)
 		dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
 		binding.teamNumberInput.showKeyboardDelayed()
-		initSpinner()
+		context?.let { initSpinner(it) }
 	}
 
-	private fun initSpinner() {
+	private fun initSpinner(context: Context) {
 		val options = resources.getStringArray(R.array.request_options)
 		val adapter = ArrayAdapter(context, android.R.layout.simple_spinner_item, options)
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 		binding.spinnerSelector.adapter = adapter
 	}
 
-	override fun onDismiss(dialog: DialogInterface?) {
+	override fun onDismiss(dialog: DialogInterface) {
 		super.onDismiss(dialog)
 		listener.onDismissed()
 	}
 
-	override fun onCancel(dialog: DialogInterface?) {
+	override fun onCancel(dialog: DialogInterface) {
 		super.onCancel(dialog)
 		listener.onDismissed()
 	}
