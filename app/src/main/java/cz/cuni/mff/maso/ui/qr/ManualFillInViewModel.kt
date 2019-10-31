@@ -5,5 +5,5 @@ import cz.cuni.mff.maso.ui.BaseViewModel
 
 class ManualFillInViewModel : BaseViewModel() {
 	val teamNumber = MutableLiveData<String>()
-	val problemId = MutableLiveData<String>()
+	val taskNumber = MutableLiveData<String>()
 }

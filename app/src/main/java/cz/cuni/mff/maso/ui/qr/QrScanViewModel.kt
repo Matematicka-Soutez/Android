@@ -20,19 +20,19 @@ class QrScanViewModel : BaseViewModel() {
 
 	private val patternAll = Pattern.compile("T\\d+P\\d+")
 	private val patternTeam = Pattern.compile("T(\\d+)")
-	private val patternProblem = Pattern.compile("P(\\d+)")
+	private val patternTask = Pattern.compile("P(\\d+)")
 	private val requestEntity = MutableLiveData<QrRequestEntityWrapper?>()
 	var requestType = RequestTypeEnum.ADD
 	val request: LiveData<Resource<QrResponseEntity>> = Transformations.switchMap(requestEntity) { it ->
 		it?.let {
-			RetrofitHelper.createRequest(RetrofitHelper.instance.create(MasoRequest::class.java).sendQrCode(it.gameCode, it.teamNumber, it.requestEntity))
+			RetrofitHelper.createRequest(RetrofitHelper.instance.create(MasoRequest::class.java).sendQrCode(it.gameCode, it.teamNumber, it.authToken, it.userId, it.requestEntity))
 		}
 	}
 
 	fun processQrCodeResult(text: String?): Boolean {
 		val qrCodeEntity = extractDataFromQrCode(text)
 		qrCodeEntity?.let {
-			sendRequest(it.teamNumber, it.problemId, requestType)
+			sendRequest(it.teamNumber, it.taskNumber, requestType)
 			return true
 		}
 		return false
@@ -55,17 +55,17 @@ class QrScanViewModel : BaseViewModel() {
 				return null
 			}
 			var teamNumber: Int? = null
-			var problemId: Int? = null
+			var taskNumber: Int? = null
 			val teamMatcher = patternTeam.matcher(text)
-			val problemMatcher = patternProblem.matcher(text)
+			val problemMatcher = patternTask.matcher(text)
 			if (teamMatcher.find()) {
 				teamNumber = teamMatcher.group(1).toIntOrNull()
 			}
 			if (problemMatcher.find()) {
-				problemId = problemMatcher.group(1).toIntOrNull()
+				taskNumber = problemMatcher.group(1).toIntOrNull()
 			}
-			if (teamNumber != null && problemId != null) {
-				return QrCodeEntity(teamNumber, problemId)
+			if (teamNumber != null && taskNumber != null) {
+				return QrCodeEntity(teamNumber, taskNumber)
 			}
 		}
 		return null
@@ -92,9 +92,9 @@ class QrScanViewModel : BaseViewModel() {
 		}
 	}
 
-	fun sendRequest(teamNumber: Int, problemId: Int, requestType: RequestTypeEnum) {
+	fun sendRequest(teamNumber: Int, taskNumber: Int, requestType: RequestTypeEnum) {
 		Preferences.getGameCode()?.let {
-			callApiRequest(QrRequestEntityWrapper(QrRequestEntity(requestType, problemId, Preferences.getPassword()!!), it, teamNumber))
+			callApiRequest(QrRequestEntityWrapper(QrRequestEntity(requestType, taskNumber), it, teamNumber, Preferences.getAuthToken()!!, Preferences.getUserId()!!))
 		}
 	}
 }

@@ -18,35 +18,33 @@ data class ErrorItem(
         @Json(name = "field") val field: String
 )
 
-data class QrCodeEntity(val teamNumber: Int, val problemId: Int)
+data class QrCodeEntity(val teamNumber: Int, val taskNumber: Int)
 
 @JsonClass(generateAdapter = true)
 data class QrRequestEntity(
         @Json(name = "action") val action: RequestTypeEnum,
-        @Json(name = "problem") val problemId: Int,
-        @Json(name = "password") val password: String
+        @Json(name = "taskNumber") val taskNumber: Int
 )
 
 data class QrRequestEntityWrapper(
         val requestEntity: QrRequestEntity,
         val gameCode: String,
-        val teamNumber: Int
+        val teamNumber: Int,
+        val authToken: String,
+        val userId: String
 )
 
 @JsonClass(generateAdapter = true)
 data class QrResponseEntity(
-        @Json(name = "id") val id: Int,
-        @Json(name = "competitionId") val competitionId: Int,
-        @Json(name = "teamId") val teamId: Int,
         @Json(name = "teamNumber") val teamNumber: Int,
-        @Json(name = "problemNumber") val problemId: Int,
-        @Json(name = "solved") val solved: Boolean,
-        @Json(name = "createdBy") val createdById: Int,
-        @Json(name = "createdAt") val createdAt: Date,
-        @Json(name = "updatedAt") val updatedAt: Date
+        @Json(name = "teamName") val teamName: String,
+        @Json(name = "taskNumber") val taskNumber: Int,
+        @Json(name = "solved") val solved: Boolean, // TODO: change to taskStatusId
+        @Json(name = "print") val print: Boolean,
+        @Json(name = "printTaskNumber") val printTaskNumber: Int
 )
 
 enum class RequestTypeEnum(val value: String) {
-    ADD("add"), CANCEL("cancel")
+    ADD("add"), CANCEL("cancel"), EXCHANGE("exchange")
 }
 

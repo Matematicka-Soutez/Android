@@ -1,8 +1,10 @@
 <resources>
 	<string name="app_name">MaSo</string>
-	<string name="action_change_password">Změnit heslo</string>
+	<string name="logout">Odhlásit se</string>
+	<string name="username_hint">E-mail</string>
 	<string name="password_hint">Heslo</string>
 	<string name="game_hint">Kód hry</string>
+	<string name="use_printer">Použít tiskárnu</string>
 	<string name="error_camera_permission_denied">Nelze načíst QR kód, je vyžadován přístup ke kameře</string>
 	<string name="error_qr_code_format_not_valid">Tento QR kód není platný</string>
 	<string name="cancel">Zrušit</string>
@@ -29,5 +31,6 @@
 	<string name="problem_number_hint">Číslo úlohy</string>
 	<string name="submit_btn">Potvrdit</string>
 	<string name="error_invalid_data">Neplatná data</string>
-	<string name="privacy_policy">Ochrana soukromí</string>
+    <string name="privacy_policy">Ochrana soukromí</string>
+    <string name="settings">Nastavení</string>
 </resources>

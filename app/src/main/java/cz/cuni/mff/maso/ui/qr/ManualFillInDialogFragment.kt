@@ -59,9 +59,9 @@ class ManualFillInDialogFragment : DialogFragment() {
 
 			override fun onSubmitClicked() {
 				val teamNumber = viewModel.teamNumber.value?.toIntOrNull()
-				val problemId = viewModel.problemId.value?.toIntOrNull()
-				if (teamNumber != null && problemId != null) {
-					listener.onDataEntered(teamNumber, problemId, if (binding.spinnerSelector.selectedItemPosition == 1) RequestTypeEnum.CANCEL else RequestTypeEnum.ADD)
+				val taskNumber = viewModel.taskNumber.value?.toIntOrNull()
+				if (teamNumber != null && taskNumber != null) {
+					listener.onDataEntered(teamNumber, taskNumber, if (binding.spinnerSelector.selectedItemPosition == 1) RequestTypeEnum.CANCEL else RequestTypeEnum.ADD)
 					dismiss()
 				} else {
 					Toast.makeText(context, R.string.error_invalid_data, Toast.LENGTH_LONG).show()
