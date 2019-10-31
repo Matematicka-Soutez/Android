@@ -77,7 +77,7 @@
 				android:layout_height="wrap_content"
 				android:inputType="numberSigned"
 				android:hint="@string/problem_number_hint"
-				android:text="@={viewModel.problemId}" />
+				android:text="@={viewModel.taskNumber}" />
 
 		</com.google.android.material.textfield.TextInputLayout>
 
@@ -98,7 +98,7 @@
 				android:layout_width="wrap_content"
 				android:layout_height="wrap_content"
 				android:text="@string/submit_btn"
-				android:enabled="@{!TextUtils.isEmpty(viewModel.teamNumber) &amp;&amp; !TextUtils.isEmpty(viewModel.problemId)}"
+				android:enabled="@{!TextUtils.isEmpty(viewModel.teamNumber) &amp;&amp; !TextUtils.isEmpty(viewModel.taskNumber)}"
 				android:onClick="@{() -> view.onSubmitClicked()}"
 				style="@style/Widget.Bonder.Button.TextButton.Yellow" />
 		</LinearLayout>

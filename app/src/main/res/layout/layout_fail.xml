@@ -71,7 +71,7 @@
 				<com.google.android.material.button.MaterialButton
 					android:layout_width="wrap_content"
 					android:layout_height="wrap_content"
-					android:text="@{viewModel.request.errorType == ErrorType.UNAUTHORIZED ? @string/action_change_password : @string/retry}"
+					android:text="@{viewModel.request.errorType == ErrorType.UNAUTHORIZED ? @string/logout : @string/retry}"
 					android:onClick="@{() -> view.actionFail()}"
 					style="@style/Widget.Bonder.Button.TextButton.Yellow" />
 			</LinearLayout>

@@ -29,7 +29,8 @@ import cz.cuni.mff.maso.api.RequestTypeEnum
 import cz.cuni.mff.maso.api.Status
 import cz.cuni.mff.maso.databinding.ActivityQrScanBinding
 import cz.cuni.mff.maso.ui.BaseActivity
-import cz.cuni.mff.maso.ui.password.PasswordActivity
+import cz.cuni.mff.maso.ui.login.LoginActivity
+import cz.cuni.mff.maso.ui.settings.SettingsActivity
 
 private const val PERMISSION_CAMERA_CODE = 69
 
@@ -75,7 +76,7 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 		override fun actionFail() {
 			viewModel.state.value = QrScreenState.SCANNING
 			if (viewModel.request.value?.errorType == ErrorType.UNAUTHORIZED) {
-				startPasswordActivity()
+				startLoginActivity()
 			} else {
 				viewModel.retry()
 			}
@@ -154,26 +155,35 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 
 	override fun onCreateOptionsMenu(menu: Menu): Boolean {
 		menuInflater.inflate(R.menu.menu_privacy_policy, menu)
-		menuInflater.inflate(R.menu.menu_qr, menu)
+		menuInflater.inflate(R.menu.menu_settings, menu)
+		menuInflater.inflate(R.menu.menu_logout, menu)
 		return super.onCreateOptionsMenu(menu)
 	}
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			R.id.action_change_password -> {
-				startPasswordActivity()
+			R.id.action_logout -> {
+				startLoginActivity()
 				return true
 			}
 			R.id.action_privacy_policy -> {
 				startPrivacyPolicyActivity()
 				return true
 			}
+			R.id.action_settings -> {
+				startSettingsActivity()
+				return true
+			}
 		}
 		return super.onOptionsItemSelected(item)
 	}
 
-	private fun startPasswordActivity() {
-		startActivity(PasswordActivity.newIntent(this, true))
+	private fun startLoginActivity() {
+		startActivity(LoginActivity.newIntent(this, true))
+	}
+
+	private fun startSettingsActivity() {
+		startActivity(SettingsActivity.newIntent(this, true))
 	}
 
 	override fun onStart() {
@@ -203,10 +213,7 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 		permissions: Array<String>, grantResults: IntArray) {
 		when (requestCode) {
 			PERMISSION_CAMERA_CODE -> {
-				// If request is cancelled, the result arrays are empty.
 				if ((grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)) {
-					// permission was granted, yay! Do the
-					// contacts-related task you need to do.
 					viewModel.state.value = QrScreenState.SCANNING
 				} else {
 					viewModel.state.value = QrScreenState.PERMISSION_REQUIRED

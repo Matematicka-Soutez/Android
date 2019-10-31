@@ -24,7 +24,7 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-private const val URL_BASE = "https://kamiony.herokuapp.com/"
+private const val URL_BASE = "http://localhost:3000/"
 
 object RetrofitHelper {
 
