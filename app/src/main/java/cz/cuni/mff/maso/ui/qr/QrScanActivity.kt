@@ -28,7 +28,6 @@ import cz.cuni.mff.maso.tools.Preferences
 import cz.cuni.mff.maso.ui.BaseActivity
 import cz.cuni.mff.maso.ui.login.LoginActivity
 import cz.cuni.mff.maso.ui.settings.SettingsActivity
-import cz.cuni.mff.maso.ui.zip.ZipActivity
 
 private const val PERMISSION_CAMERA_CODE = 69
 
@@ -178,16 +177,8 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 				startLoginActivity()
 				return true
 			}
-			R.id.action_zip -> {
-				startZipActivity()
-				return true
-			}
 		}
 		return super.onOptionsItemSelected(item)
-	}
-
-	private fun startZipActivity() {
-		startActivity(ZipActivity.newIntent(this))
 	}
 
 	private fun startLoginActivity() {
