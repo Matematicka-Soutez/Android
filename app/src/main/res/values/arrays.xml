@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<array name="request_options">
-		<item>@string/add_qr_code</item>
-		<item>@string/cancel_qr_code</item>
+		<item>@string/solve_task</item>
+		<item>@string/exhange_task</item>
+		<item>@string/cancel_task</item>
 	</array>
 </resources>

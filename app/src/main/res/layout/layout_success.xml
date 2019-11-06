@@ -11,6 +11,7 @@
 			name="viewModel"
 			type="cz.cuni.mff.maso.ui.qr.QrScanViewModel" />
 		<import type="cz.cuni.mff.maso.api.ErrorType" />
+		<import type="cz.cuni.mff.maso.api.TaskStatusEnum" />
 		<import type="cz.cuni.mff.maso.R" />
 	</data>
 
@@ -33,7 +34,7 @@
 				android:padding="6dp"
 				android:layout_gravity="center_horizontal"
 				android:gravity="center_horizontal"
-				android:text="@{viewModel.request.data.solved ? @string/title_request_success_add : @string/title_request_success_cancel}"
+				android:text="@{viewModel.request.data.taskStatusId == TaskStatusEnum.SOLVED.value ? @string/title_request_success_solved : @string/title_request_success_cancel}"
 				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
 			<ImageView
@@ -41,8 +42,8 @@
 				android:layout_height="@dimen/status_icon_size"
 				android:layout_gravity="center"
 				android:padding="@dimen/status_icon_margin"
-				android:background="@{viewModel.request.data.solved ? @drawable/bg_success : @drawable/bg_cancel_success}"
-				app:srcImage="@{viewModel.request.data.solved ? R.drawable.ic_success : R.drawable.ic_cancel_success}" />
+				android:background="@{viewModel.request.data.taskStatusId == TaskStatusEnum.SOLVED.value ? @drawable/bg_success : @drawable/bg_cancel_success}"
+				app:srcImage="@{viewModel.request.data.taskStatusId == TaskStatusEnum.SOLVED.value ? R.drawable.ic_success : R.drawable.ic_cancel_success}" />
 
 			<TextView
 				android:layout_width="wrap_content"

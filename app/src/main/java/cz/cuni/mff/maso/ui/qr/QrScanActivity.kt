@@ -24,6 +24,7 @@ import cz.cuni.mff.maso.api.ErrorType
 import cz.cuni.mff.maso.api.RequestTypeEnum
 import cz.cuni.mff.maso.api.Status
 import cz.cuni.mff.maso.databinding.ActivityQrScanBinding
+import cz.cuni.mff.maso.tools.Preferences
 import cz.cuni.mff.maso.ui.BaseActivity
 import cz.cuni.mff.maso.ui.login.LoginActivity
 import cz.cuni.mff.maso.ui.settings.SettingsActivity
@@ -73,6 +74,7 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 		override fun actionFail() {
 			viewModel.state.value = QrScreenState.SCANNING
 			if (viewModel.request.value?.errorType == ErrorType.UNAUTHORIZED) {
+				Preferences.clearPreferences()
 				startLoginActivity()
 			} else {
 				viewModel.retry()
@@ -130,7 +132,11 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 		binding.spinnerSelector.adapter = adapter
 		binding.spinnerSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
 			override fun onItemSelected(adapterView: AdapterView<*>, view: View?, i: Int, l: Long) {
-				viewModel.requestType = if (i == 1) RequestTypeEnum.CANCEL else RequestTypeEnum.ADD
+				viewModel.requestType = when(i) {
+					0 -> RequestTypeEnum.SOLVE
+					1 -> RequestTypeEnum.EXCHANGE
+					else -> RequestTypeEnum.CANCEL
+				}
 			}
 
 			override fun onNothingSelected(adapterView: AdapterView<*>) {}
@@ -159,16 +165,17 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			R.id.action_logout -> {
-				startLoginActivity()
-				return true
-			}
 			R.id.action_privacy_policy -> {
 				startPrivacyPolicyActivity()
 				return true
 			}
 			R.id.action_settings -> {
 				startSettingsActivity()
+				return true
+			}
+			R.id.action_logout -> {
+				Preferences.clearPreferences()
+				startLoginActivity()
 				return true
 			}
 			R.id.action_zip -> {
@@ -184,7 +191,7 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 	}
 
 	private fun startLoginActivity() {
-		startActivity(LoginActivity.newIntent(this, true))
+		startActivity(LoginActivity.newIntent(this))
 	}
 
 	private fun startSettingsActivity() {

@@ -14,9 +14,7 @@ class SettingsViewModel : BaseViewModel() {
 	val isGameCodeValid: MutableLiveData<Boolean> = Transformations.map(gameCode) { gameCode.value?.length ?: 0 >= GAME_CODE_MIN_LENGTH } as MutableLiveData<Boolean>
 
 	fun updateData(): Boolean {
-		usePrinter.value?.let {
-			Preferences.setUsePrinter(it)
-		} ?: return false
+		Preferences.setUsePrinter(usePrinter.value == true)
 		gameCode.value?.let {
 			Preferences.setGameCode(it)
 		} ?: return false

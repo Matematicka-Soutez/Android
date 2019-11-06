@@ -4,13 +4,13 @@
         tools:context="cz.cuni.mff.maso.ui.settings.SettingsActivity">
     <item
             android:id="@+id/action_settings"
-            android:orderInCategory="100"
+            android:orderInCategory="101"
             android:title="@string/settings"
             app:showAsAction="never" />
 
     <item
             android:id="@+id/action_zip"
-            android:orderInCategory="101"
+            android:orderInCategory="103"
             android:title="@string/zip"
             app:showAsAction="never" />
 </menu>

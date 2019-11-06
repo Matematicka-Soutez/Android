@@ -18,9 +18,10 @@
 	<string name="global_network_parse_fail">Nepodařilo se zpracovat data</string>
 	<string name="team_label">Číslo týmu: %1$d</string>
 	<string name="problem_label">Číslo úlohy: %1$d</string>
-	<string name="add_qr_code">Přidat QR kód</string>
-	<string name="cancel_qr_code">Zrušit QR kód</string>
-	<string name="title_request_success_add">Úloha byla úspěšně přidána</string>
+	<string name="solve_task">Vyřešit příklad</string>
+	<string name="exhange_task">Vyměnit příklad</string>
+	<string name="cancel_task">Zrušit příklad</string>
+	<string name="title_request_success_solved">Příklad vyřešen</string>
 	<string name="title_request_success_cancel">Úloha byla úspěšně zrušena</string>
 	<string name="action_settings">Nastavení</string>
 	<string name="camera_permission_denied_title">Čtečka QR kódů vyžaduje přístup ke kameře</string>

@@ -16,7 +16,7 @@ interface SettingsView {
 	fun onNextClicked()
 }
 
-private const val ARG_CHANGE_PASSWORD = "arg_change_password"
+private const val ARG_CHANGE_SETTINGS = "arg_change_settings"
 
 class SettingsActivity : BaseActivity<ActivitySettingsBinding, SettingsViewModel, SettingsView>() {
 	override val layoutResId: Int = R.layout.activity_settings
@@ -30,17 +30,20 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding, SettingsViewModel
 	}
 
 	override fun displayBackArrow(): Boolean {
-		return (intent.extras?.getByte(ARG_CHANGE_PASSWORD, 0.toByte()) ?: 0.toByte()) != 0.toByte()
+		return (intent.extras?.getByte(ARG_CHANGE_SETTINGS, 0.toByte()) ?: 0.toByte()) != 0.toByte()
 	}
 
 	companion object {
-		fun newIntent(context: Context, changePassword: Boolean = false) = Intent(context, SettingsActivity::class.java).apply {
-			putExtra(ARG_CHANGE_PASSWORD, (if (changePassword) 1 else 0).toByte())
+		fun newIntent(context: Context, changeSettings: Boolean = false) = Intent(context, SettingsActivity::class.java).apply {
+			putExtra(ARG_CHANGE_SETTINGS, (if (changeSettings) 1 else 0).toByte())
 		}
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
 		super.onCreate(savedInstanceState)
+		if (displayBackArrow()) {
+			viewModel.gameCode.setValue(Preferences.getGameCode())
+		}
 		if (!displayBackArrow() && !Preferences.getGameCode().isNullOrEmpty()) {
 			startActivity(QrScanActivity.newIntent(this))
 		}
@@ -54,12 +57,13 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding, SettingsViewModel
 
 	override fun onOptionsItemSelected(item: MenuItem): Boolean {
 		when (item.itemId) {
-			R.id.action_logout -> {
-				startLoginActivity()
-				return true
-			}
 			R.id.action_privacy_policy -> {
 				startPrivacyPolicyActivity()
+				return true
+			}
+			R.id.action_logout -> {
+				Preferences.clearPreferences()
+				startLoginActivity()
 				return true
 			}
 		}
@@ -67,6 +71,6 @@ class SettingsActivity : BaseActivity<ActivitySettingsBinding, SettingsViewModel
 	}
 
 	private fun startLoginActivity() {
-		startActivity(LoginActivity.newIntent(this, true))
+		startActivity(LoginActivity.newIntent(this))
 	}
 }
