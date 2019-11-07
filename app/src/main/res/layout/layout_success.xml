@@ -34,7 +34,7 @@
 				android:padding="6dp"
 				android:layout_gravity="center_horizontal"
 				android:gravity="center_horizontal"
-				android:text="@{viewModel.request.data.taskStatusId == TaskStatusEnum.SOLVED.value ? @string/title_request_success_solved : @string/title_request_success_cancel}"
+				android:text="@{viewModel.request.data.taskStatusId == TaskStatusEnum.SOLVED.value ? @string/title_request_success_solved : viewModel.request.data.taskStatusId == TaskStatusEnum.EXCHANGED.value ? @string/title_request_success_exchange : @string/title_request_success_cancel}"
 				android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
 			<ImageView
@@ -42,8 +42,8 @@
 				android:layout_height="@dimen/status_icon_size"
 				android:layout_gravity="center"
 				android:padding="@dimen/status_icon_margin"
-				android:background="@{viewModel.request.data.taskStatusId == TaskStatusEnum.SOLVED.value ? @drawable/bg_success : @drawable/bg_cancel_success}"
-				app:srcImage="@{viewModel.request.data.taskStatusId == TaskStatusEnum.SOLVED.value ? R.drawable.ic_success : R.drawable.ic_cancel_success}" />
+				android:background="@{viewModel.request.data.taskStatusId == TaskStatusEnum.SOLVED.value ? @drawable/bg_success : viewModel.request.data.taskStatusId == TaskStatusEnum.EXCHANGED.value ? @drawable/bg_exchange_success : @drawable/bg_cancel_success}"
+				app:srcImage="@{viewModel.request.data.taskStatusId == TaskStatusEnum.SOLVED.value ? R.drawable.ic_success : viewModel.request.data.taskStatusId == TaskStatusEnum.EXCHANGED.value ? R.drawable.ic_exchange_success : R.drawable.ic_cancel_success}" />
 
 			<TextView
 				android:layout_width="wrap_content"
