@@ -23,6 +23,7 @@
 	<string name="cancel_task">Zrušit příklad</string>
 	<string name="title_request_success_solved">Příklad vyřešen</string>
 	<string name="title_request_success_cancel">Úloha byla úspěšně zrušena</string>
+	<string name="title_request_success_exchange">Úloha vyměněna</string>
 	<string name="action_settings">Nastavení</string>
 	<string name="camera_permission_denied_title">Čtečka QR kódů vyžaduje přístup ke kameře</string>
 	<string name="allow_camera_permission_btn">Povolit přístup ke kameře</string>
