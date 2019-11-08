@@ -130,8 +130,13 @@ class QrScanActivity : BaseActivity<ActivityQrScanBinding, QrScanViewModel, QrSc
 		adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 		binding.spinnerSelector.adapter = adapter
 		binding.spinnerSelector.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-			override fun onItemSelected(adapterView: AdapterView<*>, view: View?, i: Int, l: Long) {
-				viewModel.requestType = when(i) {
+            override fun onItemSelected(
+                adapterView: AdapterView<*>,
+                view: View?,
+                position: Int,
+                l: Long
+            ) {
+                viewModel.requestType = when (position) {
 					0 -> RequestTypeEnum.SOLVE
 					1 -> RequestTypeEnum.EXCHANGE
 					else -> RequestTypeEnum.CANCEL
