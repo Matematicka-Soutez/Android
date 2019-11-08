@@ -62,6 +62,9 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 		errorMessage?.run {
 			Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT).show()
 		}
+		with(Preferences) {
+			clearPreferences()
+		}
 	}
 
 	private fun showSuccess(responseBody: LoginResponseEntity?) {
