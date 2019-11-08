@@ -5,8 +5,8 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import androidx.lifecycle.Observer
+import com.google.android.material.snackbar.Snackbar
 import cz.cuni.mff.maso.R
 import cz.cuni.mff.maso.api.*
 import cz.cuni.mff.maso.databinding.ActivityLoginBinding
@@ -44,8 +44,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 		}
 		viewModel.request.observe(this, Observer {
 			when (it.status) {
-				Status.SUCCESS -> if (viewModel.state.value == LoginScreenState.PROGRESS) showSuccess()
-				Status.ERROR -> if (viewModel.state.value == LoginScreenState.PROGRESS) showFail()
+				Status.SUCCESS -> if (viewModel.state.value == LoginScreenState.PROGRESS) showSuccess(
+					it.data
+				)
+				Status.ERROR -> if (viewModel.state.value == LoginScreenState.PROGRESS) showFail(it.message)
 				Status.LOADING -> showProgress()
 			}
 		})
@@ -55,15 +57,20 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 		viewModel.state.value = LoginScreenState.PROGRESS
 	}
 
-	private fun showFail() {
+	private fun showFail(errorMessage: String?) {
 		viewModel.state.value = LoginScreenState.ERROR
+		errorMessage?.run {
+			Snackbar.make(binding.root, errorMessage, Snackbar.LENGTH_SHORT).show()
+		}
 	}
 
-	private fun showSuccess() {
-		if (viewModel.request.value?.data?.status?.equals(RequestStatusEnum.SUCCESS)!!) {
+	private fun showSuccess(responseBody: LoginResponseEntity?) {
+		if (responseBody?.status?.equals(RequestStatusEnum.SUCCESS) == true) {
 			Preferences.setUserId(viewModel.request.value?.data?.data?.userId!!)
 			Preferences.setAuthToken(viewModel.request.value?.data?.data?.authToken!!)
 			startActivity(SettingsActivity.newIntent(this@LoginActivity))
+		} else {
+			Snackbar.make(binding.root, R.string.error_generic, Snackbar.LENGTH_SHORT).show()
 		}
 	}
 
@@ -83,8 +90,15 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 	}
 
 	private fun performLogin() {
-		Preferences.getLoginRequestEntity()?.let {
-			viewModel.callApiRequest(LoginRequestEntityWrapper(it))
+		with(Preferences) {
+			viewModel.callApiRequest(
+				LoginRequestEntityWrapper(
+					LoginRequestEntity(
+						getUsername()!!,
+						getPassword()!!
+					)
+				)
+			)
 		}
 	}
 }
