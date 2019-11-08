@@ -34,7 +34,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 	}
 
 	companion object {
-		fun newIntent(context: Context) = Intent(context, LoginActivity::class.java)
+        fun newIntent(context: Context) = Intent(context, LoginActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +100,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 			viewModel.callApiRequest(
 				LoginRequestEntityWrapper(
 					LoginRequestEntity(
-						getUsername()!!,
+                        getUsername()!!,
 						getPassword()!!
 					)
 				)
