@@ -13,7 +13,6 @@ import cz.cuni.mff.maso.databinding.ActivityLoginBinding
 import cz.cuni.mff.maso.tools.Preferences
 import cz.cuni.mff.maso.ui.BaseActivity
 import cz.cuni.mff.maso.ui.settings.SettingsActivity
-import java.util.*
 
 interface LoginView {
 	fun onNextClicked()
@@ -101,7 +100,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 			viewModel.callApiRequest(
 				LoginRequestEntityWrapper(
 					LoginRequestEntity(
-                        getUsername()!!.toLowerCase(Locale.getDefault()),
+                        getUsername()!!,
 						getPassword()!!
 					)
 				)

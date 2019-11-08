@@ -2,6 +2,7 @@ package cz.cuni.mff.maso.tools
 
 import android.preference.PreferenceManager
 import cz.cuni.mff.maso.App
+import java.util.*
 
 const val ENCRYPTION_KEY = "5_-mN%HkjCt{C!CS15%Ao\$2_{)GXB\$aqA(BkCUHDyq#Oht[--O,]T}QzS)[y7@H?"
 const val ENCRYPTION_SALT = "HUohnASx:N|mX0DS@EL;-fMK>tyjiTpGfOh@X*9X{~b;O9/p%!`eTDGAY-+~rNpL"
@@ -39,7 +40,10 @@ object Preferences {
 	}
 
 	fun setUsername(value: String) {
-		sharedPreferences.edit().putString(PREF_USERNAME, encryption?.encryptOrNull(value.toLowerCase())).apply()
+        sharedPreferences.edit().putString(
+            PREF_USERNAME,
+            encryption?.encryptOrNull(value.toLowerCase(Locale.getDefault()))
+        ).apply()
 	}
 
 	fun getUsername(): String? {
