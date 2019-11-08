@@ -39,7 +39,7 @@ object Preferences {
 	}
 
 	fun setUsername(value: String) {
-		sharedPreferences.edit().putString(PREF_USERNAME, encryption?.encryptOrNull(value)).apply()
+		sharedPreferences.edit().putString(PREF_USERNAME, encryption?.encryptOrNull(value.toLowerCase())).apply()
 	}
 
 	fun getUsername(): String? {
