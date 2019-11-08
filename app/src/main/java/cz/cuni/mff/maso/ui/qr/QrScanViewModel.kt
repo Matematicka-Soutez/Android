@@ -22,10 +22,10 @@ class QrScanViewModel : BaseViewModel() {
 	private val patternTeam = Pattern.compile("T(\\d+)")
 	private val patternTask = Pattern.compile("P(\\d+)")
 	private val requestEntity = MutableLiveData<QrRequestEntityWrapper?>()
-	var requestType = RequestTypeEnum.ADD
+	var requestType = RequestTypeEnum.SOLVE
 	val request: LiveData<Resource<QrResponseEntity>> = Transformations.switchMap(requestEntity) { it ->
 		it?.let {
-			RetrofitHelper.createRequest(RetrofitHelper.instance.create(MasoRequest::class.java).sendQrCode(it.gameCode, it.teamNumber, it.authToken, it.userId, it.requestEntity))
+			RetrofitHelper.createRequest(RetrofitHelper.instance.create(TaskUpdateRequest::class.java).sendQrCode(it.gameCode, it.teamNumber, it.authToken, it.userId, it.requestEntity))
 		}
 	}
 

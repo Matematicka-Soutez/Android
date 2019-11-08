@@ -24,7 +24,7 @@ import java.util.concurrent.Executor
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
 
-private const val URL_BASE = "http://localhost:3000/"
+private const val URL_BASE = "https://cesta-kolem-sveta.herokuapp.com/"
 
 object RetrofitHelper {
 
@@ -150,7 +150,8 @@ class RequestTypeAdapter {
 	@FromJson
 	fun fromJson(requestType: String?) = requestType?.let {
 		when (it) {
-			RequestTypeEnum.ADD.value -> RequestTypeEnum.ADD
+			RequestTypeEnum.SOLVE.value -> RequestTypeEnum.SOLVE
+			RequestTypeEnum.EXCHANGE.value -> RequestTypeEnum.EXCHANGE
 			RequestTypeEnum.CANCEL.value -> RequestTypeEnum.CANCEL
 			else -> null
 		}
