@@ -1,116 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
 
-	<data>
-		<variable
-			name="view"
-			type="cz.cuni.mff.maso.ui.login.LoginView" />
-		<variable
-			name="viewModel"
-			type="cz.cuni.mff.maso.ui.login.LoginViewModel" />
-	</data>
+    <data>
 
-	<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		xmlns:app="http://schemas.android.com/apk/res-auto"
-		xmlns:tools="http://schemas.android.com/tools"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		tools:context=".ui.login.LoginActivity">
+        <variable
+                name="view"
+                type="cz.cuni.mff.maso.ui.login.LoginView" />
 
-		<com.google.android.material.appbar.AppBarLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"
-			android:theme="@style/AppTheme.AppBarOverlay">
+        <variable
+                name="viewModel"
+                type="cz.cuni.mff.maso.ui.login.LoginViewModel" />
+    </data>
 
-			<androidx.appcompat.widget.Toolbar
-				android:id="@+id/toolbar"
-				android:layout_width="match_parent"
-				android:layout_height="?attr/actionBarSize"
-				android:background="?attr/colorPrimary"
-				app:popupTheme="@style/AppTheme.PopupOverlay" />
+    <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context=".ui.login.LoginActivity">
 
-		</com.google.android.material.appbar.AppBarLayout>
+        <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:theme="@style/AppTheme.AppBarOverlay">
 
-		<androidx.constraintlayout.widget.ConstraintLayout
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			android:layout_marginTop="?attr/actionBarSize"
-			android:background="@color/colorPrimary"
-			android:gravity="center"
-			android:orientation="vertical">
+            <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    android:background="?attr/colorPrimary"
+                    app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-			<ImageView
-				android:id="@+id/image_logo"
-				android:layout_width="0dp"
-				android:layout_height="0dp"
-				android:layout_margin="24dp"
-				android:adjustViewBounds="true"
-				android:src="@drawable/logo"
-				app:layout_constraintBottom_toTopOf="@id/text_input_layout_game_code"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintHeight_max="128dp"
-				app:layout_constraintVertical_chainStyle="packed"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toTopOf="parent" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/text_input_layout_game_code"
-				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-				android:layout_width="256dp"
-				android:layout_height="wrap_content"
-				android:layout_margin="16dp"
-				app:layout_constraintBottom_toTopOf="@id/text_input_layout_password"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/image_logo">
+        <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="?attr/actionBarSize"
+                android:background="@color/colorPrimary"
+                android:gravity="center"
+                android:orientation="vertical">
 
-				<com.google.android.material.textfield.TextInputEditText
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/username_hint"
-					android:text="@={viewModel.username}" />
+            <ImageView
+                    android:id="@+id/image_logo"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_margin="24dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/logo"
+                    app:layout_constraintBottom_toTopOf="@id/text_input_layout_game_code"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_max="128dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
 
-			</com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_game_code"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="256dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/text_input_layout_password"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/image_logo">
 
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/username_hint"
+                        android:inputType="textEmailAddress"
+                        android:text="@={viewModel.username}" />
 
-			<com.google.android.material.textfield.TextInputLayout
-				android:id="@+id/text_input_layout_password"
-				style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-				android:layout_width="256dp"
-				android:layout_height="wrap_content"
-				android:layout_margin="16dp"
-				app:layout_constraintBottom_toTopOf="@id/fab"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/text_input_layout_game_code"
-				app:passwordToggleEnabled="true">
-
-				<com.google.android.material.textfield.TextInputEditText
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:hint="@string/password_hint"
-					android:inputType="textPassword"
-					android:text="@={viewModel.password}" />
-
-			</com.google.android.material.textfield.TextInputLayout>
-
-			<com.google.android.material.floatingactionbutton.FloatingActionButton
-				android:id="@+id/fab"
-				android:layout_width="wrap_content"
-				android:layout_height="wrap_content"
-				android:layout_margin="@dimen/fab_margin"
-				android:enabled="@{viewModel.isPasswordValid() &amp;&amp; viewModel.isUsernameValid()}"
-				android:onClick="@{() -> view.onNextClicked()}"
-				app:fabBgColor="@{viewModel.isPasswordValid() &amp;&amp; viewModel.isUsernameValid() ? @color/colorAccent : @color/disabled}"
-				app:layout_constraintBottom_toBottomOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintTop_toBottomOf="@id/text_input_layout_password"
-				app:layout_constraintVertical_bias="0"
-				app:srcCompat="@drawable/ic_next" />
+            </com.google.android.material.textfield.TextInputLayout>
 
 
-		</androidx.constraintlayout.widget.ConstraintLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/text_input_layout_password"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_width="256dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    app:layout_constraintBottom_toTopOf="@id/fab"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_input_layout_game_code"
+                    app:passwordToggleEnabled="true">
 
-	</androidx.coordinatorlayout.widget.CoordinatorLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="@string/password_hint"
+                        android:inputType="textPassword"
+                        android:text="@={viewModel.password}" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/fab_margin"
+                    android:enabled="@{viewModel.isPasswordValid() &amp;&amp; viewModel.isUsernameValid()}"
+                    android:onClick="@{() -> view.onNextClicked()}"
+                    app:fabBgColor="@{viewModel.isPasswordValid() &amp;&amp; viewModel.isUsernameValid() ? @color/colorAccent : @color/disabled}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/text_input_layout_password"
+                    app:layout_constraintVertical_bias="0"
+                    app:srcCompat="@drawable/ic_next" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

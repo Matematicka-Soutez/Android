@@ -13,6 +13,7 @@ import cz.cuni.mff.maso.databinding.ActivityLoginBinding
 import cz.cuni.mff.maso.tools.Preferences
 import cz.cuni.mff.maso.ui.BaseActivity
 import cz.cuni.mff.maso.ui.settings.SettingsActivity
+import java.util.*
 
 interface LoginView {
 	fun onNextClicked()
@@ -34,7 +35,10 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 	}
 
 	companion object {
-		fun newIntent(context: Context) = Intent(context, LoginActivity::class.java)
+        fun newIntent(context: Context) = Intent(context, LoginActivity::class.java).apply {
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
 	}
 
 	override fun onCreate(savedInstanceState: Bundle?) {
@@ -97,7 +101,7 @@ class LoginActivity : BaseActivity<ActivityLoginBinding, LoginViewModel, LoginVi
 			viewModel.callApiRequest(
 				LoginRequestEntityWrapper(
 					LoginRequestEntity(
-						getUsername()!!,
+                        getUsername()!!.toLowerCase(Locale.getDefault()),
 						getPassword()!!
 					)
 				)
